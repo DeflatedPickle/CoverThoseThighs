@@ -1,0 +1,12 @@
+accessWidener	v1	named
+
+accessible    field    net/minecraft/client/model/ModelPart    children    Ljava/util/Map;
+
+accessible    field    net/minecraft/client/render/entity/model/BeeEntityModel    FRONT_LEGS    Ljava/lang/String;
+accessible    field    net/minecraft/client/render/entity/model/BeeEntityModel    MIDDLE_LEGS    Ljava/lang/String;
+accessible    field    net/minecraft/client/render/entity/model/BeeEntityModel    BACK_LEGS    Ljava/lang/String;
+
+accessible    method    net/minecraft/client/render/entity/model/GhastEntityModel    getTentacleName    (I)Ljava/lang/String;
+accessible    method    net/minecraft/client/render/entity/model/SquidEntityModel    getTentacleName    (I)Ljava/lang/String;
+accessible    method    net/minecraft/client/render/entity/model/GuardianEntityModel    getSpikeName    (I)Ljava/lang/String;
+accessible    method    net/minecraft/client/render/entity/model/BlazeEntityModel    getRodName    (I)Ljava/lang/String;

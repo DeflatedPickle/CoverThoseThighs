@@ -15,7 +15,15 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+ext {
+	new File("./lib").mkdir()
+}
+
 repositories {
+	flatDir {
+		dirs "./lib", "./.gradle/loom-cache/remapped_mods"
+	}
+
 	maven { url 'https://jitpack.io' }
 	maven { url "https://maven.terraformersmc.com" }
 	mavenCentral()
@@ -31,7 +39,16 @@ dependencies {
 
 	// https://fabricmc.net/wiki/documentation:libraries
 	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
+
+	modRuntime files("./lib")
 }
+
+task copyLocal(type: Copy) {
+	from("./lib")
+	into("./run/mods")
+	include("*.jar")
+}
+processResources.dependsOn copyLocal
 
 loom {
 	accessWidenerPath = file("src/main/resources/${archives_base_name}.accesswidener")
@@ -66,6 +83,8 @@ spotless {
 	ratchetFrom "origin/${branch}"
 
 	java {
+		target 'src/*/java/**/*.java'
+
 		importOrder()
 		removeUnusedImports()
 		googleJavaFormat()
@@ -75,6 +94,7 @@ spotless {
 
 	groovyGradle {
 		target '*.gradle'
+
 		greclipse()
 	}
 
@@ -82,6 +102,12 @@ spotless {
 		ktlint(ktlint_version)
 
 		licenseHeader "/* ${expand_license(license_header)} */\n\n"
+	}
+
+	json {
+		target 'src/**/*.json'
+
+		simple()
 	}
 
 	format 'misc', {
