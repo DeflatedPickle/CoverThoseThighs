@@ -4,7 +4,6 @@ package com.deflatedpickle.coverthosethighs
 
 import com.deflatedpickle.coverthosethighs.api.HasLegs
 import net.minecraft.client.model.ModelPart
-import net.minecraft.client.render.LightmapTextureManager
 import net.minecraft.client.render.OverlayTexture
 import net.minecraft.client.render.RenderLayer
 import net.minecraft.client.render.VertexConsumerProvider
@@ -19,7 +18,7 @@ class ThighHighFeature<T : LivingEntity, M : EntityModel<T>>(entityRenderer: Liv
     FeatureRenderer<T, M>(entityRenderer) {
     companion object {
         const val offset = 0.1f
-        val texture = Identifier("$[id]", "textures/entity/thighhighs.png")
+        val texture = Identifier(CoverThoseThighs.MOD_ID, "textures/entity/thighhighs.png")
     }
 
     override fun render(
@@ -40,18 +39,33 @@ class ThighHighFeature<T : LivingEntity, M : EntityModel<T>>(entityRenderer: Liv
                     leg.forEachCuboid(matrices) { entry: MatrixStack.Entry, _: String, _: Int, cuboid: ModelPart.Cuboid ->
                         val yShift = cuboid.maxY / 5
 
-                        ModelPart.Cuboid(
-                            0, 0,
-                            cuboid.minX - offset, cuboid.minY - offset + yShift, cuboid.minZ - offset,
-                            (cuboid.maxX + offset) * 2, cuboid.maxY + offset * 2 - yShift, (cuboid.maxZ + offset) * 2,
-                            0f, 0f, 0f,
-                            false, 4f, 4f,
-                        ).renderCuboid(
-                            entry,
-                            vertexConsumers.getBuffer(RenderLayer.getEntitySolid(texture)),
-                            LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV,
-                            1f, 1f, 1f, 1f,
+                        ModelPart(
+                            listOf(
+                                ModelPart.Cuboid(
+                                    0,
+                                    0,
+                                    cuboid.minX - offset,
+                                    cuboid.minY - offset + yShift,
+                                    cuboid.minZ - offset,
+                                    (cuboid.maxX + offset) * 2,
+                                    cuboid.maxY + offset * 2 - yShift,
+                                    (cuboid.maxZ + offset) * 2,
+                                    0f,
+                                    0f,
+                                    0f,
+                                    false,
+                                    4f,
+                                    4f,
+                                )
+                            ),
+                            mapOf(),
                         )
+                            .render(
+                                matrices,
+                                vertexConsumers.getBuffer(RenderLayer.getEntitySolid(texture)),
+                                light, OverlayTexture.DEFAULT_UV,
+                                1f, 1f, 1f, 1f,
+                            )
                     }
                 }
             }

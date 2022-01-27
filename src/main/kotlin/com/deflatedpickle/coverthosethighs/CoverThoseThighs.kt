@@ -2,7 +2,7 @@
 
 package com.deflatedpickle.coverthosethighs
 
-import net.fabricmc.api.ModInitializer
+import net.fabricmc.api.ClientModInitializer
 import net.minecraft.client.render.entity.model.BeeEntityModel
 import net.minecraft.client.render.entity.model.BlazeEntityModel
 import net.minecraft.client.render.entity.model.EntityModelPartNames
@@ -11,8 +11,8 @@ import net.minecraft.client.render.entity.model.GuardianEntityModel
 import net.minecraft.client.render.entity.model.SquidEntityModel
 
 @Suppress("UNUSED")
-object CoverThoseThighs : ModInitializer {
-    private const val MOD_ID = "$[id]"
+object CoverThoseThighs : ClientModInitializer {
+    const val MOD_ID = "$[id]"
     private const val NAME = "$[name]"
     private const val GROUP = "$[group]"
     private const val AUTHOR = "$[author]"
@@ -25,6 +25,8 @@ object CoverThoseThighs : ModInitializer {
         EntityModelPartNames.LEFT_HIND_LEG,
         EntityModelPartNames.RIGHT_FRONT_LEG,
         EntityModelPartNames.LEFT_FRONT_LEG,
+        "left_middle_hind_leg", "right_middle_hind_leg",
+        "right_middle_front_leg", "left_middle_front_leg",
         BeeEntityModel.FRONT_LEGS, BeeEntityModel.MIDDLE_LEGS, BeeEntityModel.BACK_LEGS,
         *List(8) { index -> SquidEntityModel.getTentacleName(index) }.toTypedArray(),
         *List(9) { index -> GhastEntityModel.getTentacleName(index) }.toTypedArray(),
@@ -32,7 +34,7 @@ object CoverThoseThighs : ModInitializer {
         *List(12) { index -> BlazeEntityModel.getRodName(index) }.toTypedArray()
     )
 
-    override fun onInitialize() {
+    override fun onInitializeClient() {
         println(listOf(MOD_ID, NAME, GROUP, AUTHOR, VERSION))
     }
 }
