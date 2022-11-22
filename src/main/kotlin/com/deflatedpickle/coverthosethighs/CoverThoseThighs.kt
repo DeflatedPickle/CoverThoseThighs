@@ -2,13 +2,14 @@
 
 package com.deflatedpickle.coverthosethighs
 
-import net.fabricmc.api.ClientModInitializer
 import net.minecraft.client.render.entity.model.BeeEntityModel
 import net.minecraft.client.render.entity.model.BlazeEntityModel
 import net.minecraft.client.render.entity.model.EntityModelPartNames
 import net.minecraft.client.render.entity.model.GhastEntityModel
 import net.minecraft.client.render.entity.model.GuardianEntityModel
 import net.minecraft.client.render.entity.model.SquidEntityModel
+import org.quiltmc.loader.api.ModContainer
+import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer
 
 @Suppress("UNUSED")
 object CoverThoseThighs : ClientModInitializer {
@@ -34,7 +35,7 @@ object CoverThoseThighs : ClientModInitializer {
         *List(12) { index -> BlazeEntityModel.getRodName(index) }.toTypedArray()
     )
 
-    override fun onInitializeClient() {
+    override fun onInitializeClient(mod: ModContainer) {
         println(listOf(MOD_ID, NAME, GROUP, AUTHOR, VERSION))
     }
 }
